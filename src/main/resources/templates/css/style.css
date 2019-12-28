@@ -1,0 +1,51 @@
+/*------General-----------*/
+body{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.625em;
+    color: black;
+}
+h1{
+    font-family: Merriweather;
+    color: #006D46;
+    font-size: 3.2em;
+
+}
+h1.display-2{
+    font-size: 4.2em;
+    font-weight: bold;
+    color: black
+}
+h1.display-1{
+    font-size: 17.6em;
+    font-weight: bold;
+}
+p{
+    font-size: 2.1em;
+}
+#principes li{
+    font-size: 2.1em;
+}
+.card-header{
+    font-size: 2.1em
+}
+#greentext{
+    color: #006D46
+}
+.custom-file-label, .custom-form-label{
+font-size: 1.6em
+}
+/*------General-----------*/
+
+
+/*------NAV-----------*/
+
+nav a.nav-link {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.6em;
+   
+}
+nav .nav-item.active a.nav-link{
+    font-weight: bold;
+    color: #82BC00 !important;
+}
+/*------NAV-----------*/

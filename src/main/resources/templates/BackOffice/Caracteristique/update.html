@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>APA Web Portal</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{/assets/vendor/linearicons/style.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/vendor/chartist/css/chartist-custom.css}"/>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script th:src="@{/js/stepped.js}"></script>
+    <link th:href="@{/css/stepped.css}" rel="stylesheet"/>
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}"/>
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" th:href="@{/assets/css/demo.css}"/>
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"/>
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" th:href="@{assets/img/apple-icon.png}"/>
+	<link rel="icon" type="image/png" sizes="96x96" th:href="@{/assets/img/favicon.png}"/>
+	<style>
+#instoverlay,#rhoverlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+    
+	
+	<div id="wrapper">
+	 
+      
+		
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="index.html"><img th:src="@{/assets/img/logo-dark.png}" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			</div>
+			  
+			  <div id="instoverlay" >
+			   <div class="row " style="padding-top:2%">
+                 <div class="col-md-6 col-md-offset-3">
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+			 </div>
+			</div>
+	         </div>
+	           <div id="rhoverlay" >
+			   <div class="row " style="padding-top:10%;">
+                 <div class="col-md-6 col-md-offset-3" >
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+						</div>
+						</div>
+	         </div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+				
+				<div class="navbar-btn navbar-btn-right">
+					<a class="btn btn-success update-pro"  title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+				</div>
+				<div  style="margin-right:15%;">
+					<ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+                                    <li ><a href="">Home</a></li>
+                                    <li class="actif"><a href="" >Annuaire</a></li>
+                                    <li><a href="">Dictionnaire RG</a></li>
+                                    <li><a href="">Demande d'accès</a></li>
+                                    <li><a href="">Contact</a></li>
+                                   
+                                </ul>
+				</div>
+			</div>
+		</nav>
+		<!-- END NAVBAR -->
+		<!-- LEFT SIDEBAR -->
+		
+		<div id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+					    
+						<li><a class="active" > <i class="lnr lnr-home"></i> <span>Institutions</span></a></li>
+                        <!-- 
+                        </ul>
+						<ul class="nav"  th:each="cat_inst : ${cat_inst}">
+						<li><a th:href="@{/detail/{id}/inst(id=${cat_inst.id_cat_inst})}" th:id="'inst'+${cat_inst.id_cat_inst}"> <span th:text="${cat_inst.designation}">institution1</span></a></li>
+						</ul>
+						<ul class="nav">
+						<li><a  class="active"  ><i class="lnr lnr-users"> </i> <span>Ressources humaines</span></a></li>
+						</ul>
+						<ul class="nav"  th:each="cat_rh : ${cat_rh}">
+						<li><a th:href="@{/detail/{id}/rh(id=${cat_rh.id_cat_rh})}" th:id="'rh'+${cat_rh.id_cat_rh}" > <span th:text="${cat_rh.designation}">RH1</span></a></li>
+                        </ul>
+                         -->
+				</nav>
+			</div>
+		</div>
+		<!-- END LEFT SIDEBAR -->
+		<!-- MAIN -->
+		
+		<div class="main" >
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+					 <form class="navbar-form navbar-left" style="width:100%;">
+					    <div class="input-group" style="width:80%;">
+						<input id="inputFilter" type="text" value="" class="form-control" placeholder="recherche ..." />
+						<span class="input-group-btn" style="width:1%;" ><button type="button" class="btn btn-primary" style="background-color:#41B314;border-color:#41B314;"><i  class="lnr lnr-magnifier"></i></button></span>
+					   </div>
+				      </form>
+						<div class="panel-heading">
+                            <!--
+							<h3 class="panel-title" th:text="${cat[__${ID}__].designation}" >RH/Inst</h3>
+							<p style="width:80%;" class="panel-subtitle" th:text="${cat[__${ID}__].description}">Description </p>
+						    -->
+					</div>
+					
+					<!-- END OVERVIEW -->
+					<div class="row" style="padding-left:20px;padding-top:30px;padding-right:20px">
+                
+                                
+                                <form  th:action="@{/caracteristique/update}" th:object="${classification}" method="post">
+                                  <input  name="id" type="text" placeholder="Caracteristique" th:field="*{id}" class="form-control col-lg-9" hidden>
+   
+                                  <div class="panel panel-primary" >
+                                                <div class="panel-heading">
+                                                     <h3 class="panel-title">Nouvelle caracteristique</h3>
+                                                </div>
+                                                <div class="panel-body">     
+                                                        <div class="form-group col-lg-12">
+                                                                <label class="col-lg-3 control-label" for="email">Classification</label>
+                                                                <div class="col-lg-9 d-flex">
+                                                                  <input id="email" name="nom" type="text" placeholder="Classification" th:field="*{nom}" class="form-control col-lg-9">
+                                                                  
+                                                                  <div class="col-lg-3">
+                                                              
+                                                                 </div> 
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-lg-12 ">
+                                                                <label class="col-lg-3 control-label" for="email">Description de la Caracteristique</label>
+                                                                <div class="col-lg-9 d-flex">
+                                                                  <input id="email" name="description" th:field="*{detail}" type="text" placeholder="Description " class="form-control col-lg-9">
+                                                              
+                                                                  <div class="col-lg-3">
+                                                              
+                                                                 </div> 
+                                                                </div>
+                                                            </div>
+
+
+                                                            <button class="btn btn-success pull-right" type="submit">Valider</button>
+                                                </div>
+                                            </div>
+                                          
+                                </form>
+			
+						
+					</div>
+				
+					</div>
+					
+					
+				</div>
+				
+			</div>
+			<!-- END MAIN CONTENT -->
+
+		</div>
+		<!-- END MAIN -->
+		<div class="clearfix"></div>
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">@Copyright <i class="fa fa-love"></i><a href=""></a></p>
+
+			</div>
+		</footer>
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+
+	
+	
+    
+</body>
+
+</html>
+
+

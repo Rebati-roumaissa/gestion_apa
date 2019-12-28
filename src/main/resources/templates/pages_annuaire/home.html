@@ -1,0 +1,321 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+    
+        <link rel="shortcut icon" href="" type="image/x-icon" />
+      
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,900|Work+Sans:400,600" rel="stylesheet"> 
+        <link rel="stylesheet" href="css/progressive-image.min.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png"/>
+	<link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png"/>
+        <title>APA</title>
+    </head>
+    <body >
+<!--------------------NAV---------------------------->
+            <nav class="navbar  fixed-top navbar-expand-lg navbar-light bg-white shadow-sm">
+                    <div class="brand">
+				<a href="/"><img src="../../assets/img/logo-dark-grand.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			        </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                        </li>
+                        
+                          <li class="nav-item">
+                        <a class="nav-link" href="/annuaire">Annuaire</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/Alimentation et Agriculture/all">Dictionnaire RG</a>
+                        </li>
+                      
+                        <li class="nav-item">
+                                <a class="nav-link" href="/ged/index">Règlements et Demande d'accès</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" href="">Contact</a>
+                        </li>
+                        <li sec:authorize="hasRole('Admin')" class="nav-item">
+                            <a class="nav-link"  th:href="@{/comptes}">Comptes</a>
+                        </li>
+                    </ul>
+                    
+                    	<div class="navbar-btn navbar-btn-right">
+					<a  sec:authorize="!isAuthenticated()" th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+                <a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Logout</span></a>
+				</div>
+                    </div>
+                </nav>
+<!--------------------NAV---------------------------->
+
+
+
+<div class="container">
+<div class="row justify-content-center">
+    <h1 class="display-2"> </br> Ressources Génétiques</h1>
+</div>
+<div class="row justify-content-center">
+    <h1 class="display-2">   en Algérie <br> <br></h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-4 text-center">
+        <img src="/Media/forestieres.png" width=50% alt="forestieres">
+        <h1>Forestières <br> <br></h1>
+        <p>
+                lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+        </p>
+    </div>
+    <div class="col-12 col-md-4 text-center">
+            <img src="/Media/alimentation.png" width=50% alt="Alimentation et Agriculture">
+            <h1>Alimentation et Agriculture</h1>
+            <p>
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+            </p>
+    </div>
+    <div class="col-12 col-md-4 text-center">
+            <img src="/Media/marines.png" width=50% alt="Marines">
+            <h1>Marines <br> <br></h1>
+            <p>
+                    lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+            </p>
+    </div>
+    <div class="col-12"><h1><br></h1></div>
+    <div class="col-12 col-md-4 text-center">
+                <img src="/Media/faune_sauvage.png" width=50% alt="Faune sauvage et domestique">
+                <h1>Faune sauvage et domestique</h1>
+                <p>
+                        lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                </p>
+    </div>
+    <div class="col-12 col-md-4 text-center">
+                <img src="/Media/microorganismes.png" width=50% alt="Microorganismes">
+                <h1>Microorganismes <br><br></h1>
+                <p>
+                        lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                </p>
+    </div>
+</div>
+
+    <div class="row justify-content-center">
+            <h1 class="display-2"> <br><br><br> Importance des ressources <br><br> </h1>
+            <div class="col-12"></div>
+            <div class="col-12 col-md-4">
+                <img src="/Media/importande des resource.png"  width=100% alt="importance des ressources">
+            </div>
+            <div class="col-12 col-md-4 ">
+                <p>
+                        Les animaux, plantes et microorganismes contiennent des milliards de ressources génétiques utiles. Certaines sont déjà connues et un bon nombre entre elles sont utilisées pour fabriquer des médicaments, des aliments, des produits cosmétiques ou d'autres produits importants 
+                </p>
+            </div>
+    </div>
+
+    <div class="row justify-content-center">
+            <h1 class="display-2"><br><br><br> Problème d’APA<br><br> </h1>
+    <div class="col-12"></div>
+            <div class="col-12 col-md-8">
+                <img src="/Media/probleme_dapa.png"  width=100% alt="probleme d'apa">
+            </div>
+            <div class="col-12"></div>
+            <div class="col-12 col-md-8 text-center">
+                <p>
+                        Les animaux, plantes et microorganismes contiennent des milliards de ressources génétiques utiles. Certaines sont déjà connues et un bon nombre entre elles sont utilisées pour fabriquer des médicaments, des aliments, des produits cosmétiques ou d'autres produits importants 
+                </p>    
+            </div>
+    </div>
+
+    <div class="row justify-content-center">
+            <h1 class="display-1"><br>APA<br></h1>
+            <div class="col-12"></div>
+            <div class="col-12 col-md-6">
+                <h1 class="display-2"> <br> Sommet de RIO 1992 </h1>
+                <p>
+                        plus connue sous le nom de sommet de la Terre de Rio de Janeiro ou sommet de Rio, s’est tenue à Rio de Janeiro au Brésil du 5 au 30 juin 1992,réunissant 110 chefs d'États et de gouvernements et 178 pays. Maurice Strong en était le secrétaire général. Environ 2 400 représentants d’organisations non gouvernementales (ONG) étaient présents, tandis que plus de 17 000 personnes assistaient au Forum des ONG qui se tenait parallèlement au Sommet. 
+                </p>
+            </div>
+            <div class="col-12 col-md-4 m-auto">
+                <img src="/Media/sommetderio.png" width=100% alt="sommetRIO">
+            </div>
+            <div class="col-12"><h1><br></h1></div>
+            <div class="col-12 col-md-4 m-auto">
+                    <img src="/Media/les principes.png" width=100% alt="les principes">
+            </div>
+            <div class="col-12 col-md-6">
+                
+                        <h1 class="display-2">Les principes de l'APA</h1>
+                        <p >
+                                <ul id="principes">
+                                        <li>
+                                                Un droit objectif et universel
+                                        </li>
+                                        <li>
+                                                Un champ des bénéficiaires élargi
+                                        </li>
+                                        <li>
+                                                Des prises en charge diversifiées
+                                        </li>
+                                        <li>
+                                                Une gestion de proximité, rigoureuse et 
+                                                transparente
+                                                
+                                        </li>
+                                        <li>
+                                                L'apport de la solidarité nationale
+                                        </li>
+                                </ul>
+                        </p>
+                
+            </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="card-deck">
+                <div class="card  bg-light mb-3">
+                        <div class="card-header">blalla</div>
+                        <div class="card-body">
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                </div>
+                <div class="card bg-light mb-3">
+                                <div class="card-header">blalla</div>
+                                <div class="card-body">
+                                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                        </div>
+                
+
+         </div>
+        </div>
+        <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+                <h1><br><br><br></h1>
+                <h1 class="display-2">Qui peut utiliser l’Outil de gestion de l’APA</h1>
+                <p>
+
+                            <br>   L’Outil de gestion de l’APA est destiné aux fournisseurs et aux utilisateurs de ressources génétiques et plus particulièrement aux entités suivantes : 
+                             <br>   • sociétés et entreprises privées (grandes et petites) notamment dans les domaines suivants : 
+                           <br>     – produits pharmaceutiques, 
+                             <br>   – produits botaniques, 
+                           <br>     – protection des récoltes, 
+                           <br>     – nutraceutiques 
+                            <br>    – biotechnologie,y compris les sources microbiennes de produits industriels, 
+                             <br>   – horticulture,y compris les plantes ornementales; 
+                             <br>   • communautés locales; 
+                             <br>   • peuples autochtones; 
+                             <br>   • établissements de recherche publics et privés,y compris les universités, 
+                             <br>   • détenteurs de collections ex situ; 
+                             <br>   • intermédiaires commerciaux et public.
+                </p>
+                <h1><br><br><br></h1>
+        </div>
+        </div>
+        <div class="row justify-content-center">
+
+                <div class="col-12 col-md-8">
+                        <h1 class="display-2 text-center">Mot du premier responsable</h1>
+                        <div class="embed-responsive embed-responsive-16by9">
+                                <video class="embed-responsive-item" src="/Media/video.mp4" allowfullscreen></video>
+                        </div>
+
+                        <h1 class="display-2 text-center"> <br><br><br> Evenements et nouvelles sur l'APA</h1>
+
+                </div>
+                <div class="col-12"></div>
+                <div class="col-12 col-md-8">
+                <div class="card mb-3" >
+                                <div class="row no-gutters">
+                                        <div class="col-md-4 ml-4 mt-4">
+                                        <img src="./Media/Capture1.png" class="card-img"  alt="Conférence internationale sur la
+                                        biodiversité et l'envirenoment">
+                                        </div>
+                                        <div class="col-md-7">
+                                        <div class="card-body">
+                                        <h5 class="card-title">Conférence internationale sur la
+                                                biodiversité et l'envirenoment</h5>
+                                        <p class="card-text">plus connue sous le nom de sommet de la Terre de Rio de Janeiro </p>
+                                        <p class="card-text"><small class="text-muted mt-4">20/12/2019 CIC, Alger - Algérie</small></p>
+                                        </div>
+                                        </div>
+                        </div>
+                        <div class="row no-gutters">
+                                        <div class="col-md-4 ml-4 mt-4">
+                                        <img src="./Media/Capture2.png" class="card-img"  alt="Conférence internationale sur la
+                                        biodiversité et l'envirenoment">
+                                        </div>
+                                        <div class="col-md-7">
+                                        <div class="card-body">
+                                        <h5 class="card-title">Conférence internationale sur la
+                                                biodiversité et l'envirenoment</h5>
+                                        <p class="card-text">plus connue sous le nom de sommet de la Terre de Rio de Janeiro </p>
+                                        <p class="card-text"><small class="text-muted mt-4">20/12/2019 CIC, Alger - Algérie</small></p>
+                                        </div>
+                                        </div>
+                        </div>
+                        <div class="row no-gutters">
+                                        <div class="col-md-4 ml-4 mt-4">
+                                        <img src="./Media/Capture3.png" class="card-img"  alt="Conférence internationale sur la
+                                        biodiversité et l'envirenoment">
+                                        </div>
+                                        <div class="col-md-7">
+                                        <div class="card-body">
+                                        <h5 class="card-title">Conférence internationale sur la
+                                                biodiversité et l'envirenoment</h5>
+                                        <p class="card-text">plus connue sous le nom de sommet de la Terre de Rio de Janeiro </p>
+                                        <p class="card-text"><small class="text-muted mt-4">20/12/2019 CIC, Alger - Algérie</small></p>
+                                        </div>
+                                        </div>
+                        </div>
+
+                </div>
+                </div>
+        </div>
+<div class="row justify-content-center">
+<div class="col-12 col-md-6 text-center">
+                <h1 class="display-2"> <br><br> Liens utils</h1>
+                <p id="greentext" >
+                        PNUD - développement durable 
+                        <br> PNUD -  développement durable 
+                        <br> PNUD -  développement durable 
+                        <br> PNUD -  développement durable 
+                        <br> PNUD -  développement durable 
+                        <br>
+                </p>
+</div>
+</div>
+
+        
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      
+    </body>
+</html>

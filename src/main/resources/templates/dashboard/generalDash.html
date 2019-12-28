@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+
+
+
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/linearicons/style.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/chartist/css/chartist-custom.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet"   type="text/css" href="../../assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet"  type="text/css" href="../../assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"  type="text/css">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png">
+    <style>
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900);
+a.btn {
+  background: #0096a0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  display: inline-block;
+  padding: 6px 30px 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: all 0.1s 0s ease-out;
+  transition: all 0.1s 0s ease-out;
+}
+.no-touch a.btn:hover {
+  background: #00a2ad;
+  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  -webkit-transition: all 0.25s 0s ease-out;
+  transition: all 0.25s 0s ease-out;
+}
+.no-touch a.btn:active,
+a.btn:active {
+  background: #008a93;
+  box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);
+  -webkit-transform: translate3d(0, 1px, 0);
+          transform: translate3d(0, 1px, 0);
+  -webkit-transition: all 0.025s 0s ease-out;
+  transition: all 0.025s 0s ease-out;
+}
+div.cards {
+
+  max-width: 960px;
+   background: #ffffff;
+  display: inline-block;
+ 
+}
+div.card {
+  background: #ffffff;
+  display: inline-block;
+  margin: 8px;
+  max-width: 300px;
+  -webkit-perspective: 1000;
+          perspective: 1000;
+  position: relative;
+  text-align: left;
+  -webkit-transition: all 0.3s 0s ease-in;
+  transition: all 0.3s 0s ease-in;
+  z-index: 1;
+}
+div.card img {
+  width: 300px;
+  height: 240px;
+  
+   max-width: 320px;
+  max-height: 240px;
+}
+div.card div.card-title {
+  background: #ffffff;
+  padding: 6px 15px 10px;
+  position: relative;
+  z-index: 0;
+}
+div.card div.card-title a.toggle-info {
+  border-radius: 32px;
+  height: 32px;
+  padding: 0;
+  position: absolute;
+  right: 15px;
+  width: 32px;
+}
+div.card div.card-title a.toggle-info span {
+  background: #ffffff;
+  display: block;
+  height: 2px;
+  position: absolute;
+  top: 16px;
+  -webkit-transition: all 0.15s 0s ease-out;
+  transition: all 0.15s 0s ease-out;
+  width: 12px;
+}
+div.card div.card-title a.toggle-info span.left {
+  right: 13px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+div.card div.card-title a.toggle-info span.right {
+  left: 13px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+div.card div.card-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin: 0;
+  padding: 0;
+}
+div.card div.card-title  small {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+div.card div.card-description {
+  padding: 0 15px 10px;
+  position: relative;
+  font-size: 14px;
+}
+div.card div.card-actions {
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
+  padding: 10px 15px 20px;
+  text-align: center;
+}
+div.card div.card-flap {
+  background: #d9d9d9;
+  position: absolute;
+  width: 100%;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+}
+div.card div.flap1 {
+  -webkit-transition: all 0.3s 0.3s ease-out;
+  transition: all 0.3s 0.3s ease-out;
+  z-index: -1;
+}
+div.card div.flap2 {
+  -webkit-transition: all 0.3s 0s ease-out;
+  transition: all 0.3s 0s ease-out;
+  z-index: -2;
+}
+div.cards.showing div.card {
+  cursor: pointer;
+  opacity: 0.6;
+  -webkit-transform: scale(0.88);
+          transform: scale(0.88);
+}
+.no-touch div.cards.showing div.card:hover {
+  opacity: 0.94;
+  -webkit-transform: scale(0.92);
+          transform: scale(0.92);
+}
+div.card.show {
+  opacity: 1 !important;
+  -webkit-transform: scale(1) !important;
+          transform: scale(1) !important;
+}
+div.card.show div.card-title a.toggle-info {
+  background: #ff6666 !important;
+}
+div.card.show div.card-title a.toggle-info span {
+  top: 15px;
+}
+div.card.show div.card-title a.toggle-info span.left {
+  right: 9px;
+}
+div.card.show div.card-title a.toggle-info span.right {
+  left: 9px;
+}
+div.card.show div.card-flap {
+  background: #ffffff;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+div.card.show div.flap1 {
+  -webkit-transition: all 0.3s 0s ease-out;
+  transition: all 0.3s 0s ease-out;
+}
+div.card.show div.flap2 {
+  -webkit-transition: all 0.3s 0.2s ease-out;
+  transition: all 0.3s 0.2s ease-out;
+}
+        #instoverlay,#rhoverlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+        #text{
+			display:none;
+			}
+        #menu-accordeon {
+
+            list-style:none;
+        }
+        #menu-accordeon ul {
+
+            list-style:none;
+ 			 margin-left: 40px;
+          }
+        #menu-accordeon li {
+            border-radius: 6px;
+            margin-bottom:2px;
+        }
+        #menu-accordeon li li {
+            max-height:0;
+            overflow: hidden;
+            transition: all .5s;
+            border-radius:0;
+            box-shadow: none;
+            border:none;
+            margin:0
+        }
+
+        #menu-accordeon ul li a {
+        }
+
+        #menu-accordeon ul li:last-child {
+            border-radius: 0 0 6px 6px;
+            border:none;
+        }
+        #menu-accordeon li:hover li {
+            max-height: 15em;
+        }
+        .carousel-page
+        {
+            width:100%;
+            height:400px;
+            background-color:#5f666d;
+            color:white;
+        }
+        .panel-title2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 300; }
+
+
+        .featured-list{
+            width:100%;
+            margin-bottom: 15px;
+
+
+        }
+
+        .featured-list #grid {
+            width: 100%;
+        }
+
+        .featured-list #grid .thumb {
+            float: left;
+            height: auto;
+
+            width: 33%;
+        }
+
+        .protfolio-padding{
+            padding-top:80px;
+        }
+
+        .thumb {
+            line-height: 0;
+            overflow: hidden;
+            position: relative;
+
+
+        }
+
+        .thumb a {
+            display: inline-block;
+            float: left;
+            height: 100%;
+            line-height: 0;
+            text-decoration: none;
+            width: 100%;
+        }
+        .slider-btn {
+            margin-top: 21px;
+            text-align: center
+        }
+
+        .indicatior2{
+            top:90% !important;
+        }
+
+        .formation img {
+
+            height: 571px;
+            width:1601px;
+
+        }
+
+        .btn.btn-learn {
+            background: #00bcd4 none repeat scroll 0 0;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 500;
+            padding: 15px 30px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .thumb img, .thumb a img {
+            display: block;
+            position: relative;
+            height: 260px;
+            width:401px;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .thumb-rollover{
+            position:absolute;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+
+            height:100%;
+            width:100%;
+            box-sizing:border-box;
+            background:#00bcd4;
+            opaliste:0.9;
+            text-align:center;
+            color:#fff;
+            display:none;
+            transition:0.2s;
+
+        }
+
+        .project-title{
+
+            margin:auto;
+            width:auto;
+            margin-top:60px;
+            transition:0.2s;
+        }
+        .entry p{
+		font-family: "Source Sans Pro", sans-serif;
+    font-size: 17px;
+            }
+
+        .project-title h4{
+            font-size:20px;
+            line-height:30px;
+            text-transform:uppercase;
+        }
+
+        .project-title h5{
+            font-size:15px;
+            line-height:30px;
+
+        }
+       
+        .btn.btn-suite {
+
+
+            background: #00bcd4 none repeat scroll 0 0;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 500;
+            padding: 15px 30px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+
+        }
+
+        .thumb:hover .thumb-rollover{
+            display:block;
+            transition:0.2s;
+        }
+
+.navigation{
+text-align: center;
+}
+
+.active a{
+    color: red !important;
+}
+
+    </style>
+</head>
+<body>
+
+
+<div id="wrapper">
+
+
+
+     <nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="index.html"><img src="../../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			</div>
+			  
+			  <div id="instoverlay" >
+			   <div class="row " style="padding-top:2%">
+                 <div class="col-md-6 col-md-offset-3">
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+			 </div>
+			</div>
+	         </div>
+	           <div id="rhoverlay" >
+			   <div class="row " style="padding-top:10%;">
+                 <div class="col-md-6 col-md-offset-3" >
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+						</div>
+						</div>
+	         </div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+				
+				<div class="navbar-btn navbar-btn-right">
+					<a  sec:authorize="!isAuthenticated()"th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" style="background-color: #41B314; border-color: #3ca512;" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+                <a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" style="background-color: #41B314; border-color: #3ca512;"><i class="fa fa-rocket"></i> <span>Logout</span></a>
+				</div>
+				<div  style="margin-right:15%;">
+                    <ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+                        <li ><a href="/">Home</a></li>
+                        <li ><a href="/annuaire" >Annuaire</a></li>
+                        <li ><a href="/Alimentation et Agriculture/all" class="actif" >Dictionnaire RG</a></li>
+                        <li><a href="/ged/index" >Règlements et demande d'accès</a></li>
+                        <li sec:authorize="hasRole('Admin')" >
+                            <a class="nav-link"  th:href="@{/comptes}">Comptes</a>
+                    </ul>
+				</div>
+			</div>
+		</nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+               
+                 <ul class="nav" sec:authorize="isAuthenticated()">
+                    <li th:if="${valide}">
+                        <a th:href="${'/etat_ressources'}" class="active"  ><i class="lnr lnr-list"></i>
+                          <span>  Etat des Ressources </span></a>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li>
+                        <a class="active" href="#subPages2" data-toggle="collapse" ><i class="lnr lnr-layers"></i> <span>Ressources génétiques</span> </a>
+                        <div id="subPages2" class="collapse ">
+                           <ul id="menu-accordeon" class="nav">
+                                <li ><a th:href="${'/Alimentation et Agriculture/all'}" > Alimentation et Agriculture</a>	
+                                   <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='0'"><a th:text="${liste.nom}"  th:href="@{/Alimentation et Agriculture/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul> 	
+                                    
+                                    
+                                </li>
+            
+                                <li><a th:href="${'/Animals/all'}" >Animals</a>
+                                    <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='1'"><a th:text="${liste.nom}"  th:href="@{/Animals/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Forestières/all'}" >Forestières</a>
+                                       <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='2'"><a th:text="${liste.nom}"  th:href="@{/Forestières/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Marines/all'}" >Marines</a>
+                                   <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='3'"><a th:text="${liste.nom}"  th:href="@{/Marines/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Micro Organismes/all'}"class="">Micro Organismes</a>
+                                    <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='4'"><a th:text="${liste.nom}"  th:href="@{/Micro Organismes/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+
+
+
+                            </ul>
+
+                        </div>
+                    </li>
+                </ul>
+               
+            </nav>
+        </div>
+        <div id="fixedbutton" sec:authorize="isAuthenticated()" th:if="${ajoute}">
+             <button class="btn btn-lg btn-primary btn-circle" style="background-color:#41B314;border-color:#41B314;"><i class="fa fa-plus" ></i></button>
+        
+        </div>
+    </div>
+    
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <!-- OVERVIEW -->
+                <div class="panel panel-headline" sec:authorize="isAuthenticated()">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Aperçu de l'état des Ressources</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-clock-o"></i></span>
+                                    <a th:href="@{/ressourcesEnAttente}">
+                                    <p>
+                                        <span class="number" th:text="${attente}"></span>
+                                        <span class="title">Ressources en attente de validation</span>
+                                    </p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-check-circle"></i></span>
+                                    <a th:href="@{/ressourcesValidees}">
+                                    <p>
+                                        <span class="number" th:text="${validee}"></span>
+                                        <span class="title">Ressources validées</span>
+                                    </p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="metric">
+                                    <span class="icon"><i class="fa fa-times-circle"></i></span>
+                                    <a th:href="@{/ressourcesNonValidees}">
+                                    <p>
+                                        <span class="number" th:text="${nonValidee}"></span>
+                                        <span class="title">Ressources non validées</span>
+                                    </p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" th:text=" 'Ressources ' + ${type}"></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                       <table class="table table-hover">
+                                           <thead>
+                                           <tr>
+                                               <th>N° d'identification</th>
+                                               <th>Nom Commun</th>
+                                               <th>Nom Scientifique</th>
+                                               <th>Photo</th>
+                                               <th th:if="${type}!='validées'">Action</th>
+                                           </tr>
+                                           </thead>
+                                           <tbody>
+                                           <tr th:if="${#lists.isEmpty(listeRessources)}">
+                                               <td colspan="3">Aucune ressource à valider</td>
+                                           </tr>
+                                           <tr th:each="ressource : ${listeRessources}" style="cursor: pointer" > <!-- //TODO : lien vers la ressource (nacim)-->
+                                               <td th:text="${ressource.getId()}">N° d'identification</td>
+                                               <td th:text="${ressource.getNom_commun()}">Nom Commun</td>
+                                               <td th:text="${ressource.getNom_scientifique()}">Nom Scientifique</td>
+                                               <td >
+                                                <img th:src="@{'../../images/'+${ressource.getImage()}}"  height="50px" width="80px" />
+                                               
+                                               </td>
+                                               <td th:if="${type}!='validées'" >
+                                               <a class="btn btn-primary" th:href="@{/ressource/validate/form/{id}(id=${ressource.getId()})}" role="button">Valider</a>
+                                               </td >
+                                           </tr>
+                                           </tbody>
+                                       </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OVERVIEW -->
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN -->
+
+</div>
+<!-- END WRAPPER -->
+<!-- Javascript -->
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="assets/scripts/klorofil-common.js"></script>
+<script>
+    $(function () {
+        var data, options;
+
+        // headline charts
+        data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [
+                [23, 29, 24, 40, 25, 24, 35],
+                [14, 25, 18, 34, 29, 38, 44],
+            ]
+        };
+
+        options = {
+            height: 300,
+            showArea: true,
+            showLine: false,
+            showPoint: false,
+            fullWidth: true,
+            axisX: {
+                showGrid: false
+            },
+            lineSmooth: false,
+        };
+
+        new Chartist.Line('#headline-chart', data, options);
+
+
+        // visits trend charts
+        data = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            series: [{
+                name: 'series-real',
+                data: [200, 380, 350, 320, 410, 450, 570, 400, 555, 620, 750, 900],
+            }, {
+                name: 'series-projection',
+                data: [240, 350, 360, 380, 400, 450, 480, 523, 555, 600, 700, 800],
+            }]
+        };
+
+        options = {
+            fullWidth: true,
+            lineSmooth: false,
+            height: "270px",
+            low: 0,
+            high: 'auto',
+            series: {
+                'series-projection': {
+                    showArea: true,
+                    showPoint: false,
+                    showLine: false
+                },
+            },
+            axisX: {
+                showGrid: false,
+
+            },
+            axisY: {
+                showGrid: false,
+                onlyInteger: true,
+                offset: 0,
+            },
+            chartPadding: {
+                left: 20,
+                right: 20
+            }
+        };
+
+        new Chartist.Line('#visits-trends-chart', data, options);
+
+
+        // visits chart
+        data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            series: [
+                [6384, 6342, 5437, 2764, 3958, 5068, 7654]
+            ]
+        };
+
+        options = {
+            height: 300,
+            axisX: {
+                showGrid: false
+            },
+        };
+
+        new Chartist.Bar('#visits-chart', data, options);
+
+
+        // real-time pie chart
+        var sysLoad = $('#system-load').easyPieChart({
+            size: 130,
+            barColor: function (percent) {
+                return "rgb(" + Math.round(200 * percent / 100) + ", " + Math.round(200 * (1.1 - percent / 100)) + ", 0)";
+            },
+            trackColor: 'rgba(245, 245, 245, 0.8)',
+            scaleColor: false,
+            lineWidth: 5,
+            lineCap: "square",
+            animate: 800
+        });
+
+        var updateInterval = 3000; // in milliseconds
+
+        setInterval(function () {
+            var randomVal;
+            randomVal = getRandomInt(0, 100);
+
+            sysLoad.data('easyPieChart').update(randomVal);
+            sysLoad.find('.percent').text(randomVal);
+        }, updateInterval);
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>Rôles</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/linearicons/style.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/chartist/css/chartist-custom.css"/>
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="../../assets/css/main.css"/>
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="../../assets/css/demo.css"/>
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"/>
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png"/>
+	<link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png"/>
+	<style>
+#instoverlay,#rhoverlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+    
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="index.html"><img src="../../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			</div>
+			  
+			  <div id="instoverlay" >
+			   <div class="row " style="padding-top:2%">
+                 <div class="col-md-6 col-md-offset-3">
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+			 </div>
+			</div>
+	         </div>
+	           <div id="rhoverlay" >
+			   <div class="row " style="padding-top:10%;">
+                 <div class="col-md-6 col-md-offset-3" >
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+						</div>
+						</div>
+	         </div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+
+				<div class="navbar-btn navbar-btn-right">
+					<a  sec:authorize="!isAuthenticated()"th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+					<a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Logout</span></a>
+				</div>
+				<div  style="margin-right:15%;">
+					<ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+						<li ><a href="/">Home</a></li>
+						<li ><a href="/annuaire" >Annuaire</a></li>
+						<li><a href="/Alimentation et Agriculture/all">Dictionnaire RG</a></li>
+						<li><a href="">Demande d'accès</a></li>
+						<li class="actif"><a href="gestion">Comptes</a></li>
+						<li><a href="">Contact</a></li>
+
+					</ul>
+				</div>
+				
+			</div>
+		</nav>
+		
+		<div id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+						<li><a><span>Tableau de bord</span></a></li>
+					</ul>
+					<ul class="nav">
+						<li><a><span>Création</span></a></li>
+						<ul class="nav">
+							<li><a class="active" href="/comptes"><span>Comptes</span></a></li>
+							<li><a  href="/roles"><span>Rôles</span></a></li>
+						</ul>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	
+	
+		<div class="main" >
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+					 <form class="navbar-form navbar-left" style="width:100%;">
+					    <div class="input-group" style="width:80%;">
+						<input id="inputFilter" type="text" value="" class="form-control" placeholder="recherche ..." />
+						<span class="input-group-btn" style="width:1%;" ><button type="button" class="btn btn-primary" style="background-color:#41B314;border-color:#41B314;"><i  class="lnr lnr-magnifier"></i></button></span>
+					   </div>
+				      </form>
+						<div class="panel-heading">
+							<h3 class="panel-title">Rôles</h3>
+							<p style="width:80%;" class="panel-subtitle">Gestion des rôles</p>
+						
+					</div>
+					
+					<!-- END OVERVIEW -->
+					<div class="row" style="padding-left:20px;padding-top:30px;">
+						<div class="col-md-12">
+							<!-- RECENT PURCHASES -->
+							<div >
+								<div class="table-container">
+									<table  class="table table-hover">
+										<thead>
+											<tr>
+												<th>Nom</th>
+												<th>Désignation</th>
+												<th>Lot</th>
+												<th>Permissions</th>
+												<th>Niveau de sécurité</th>
+												<th>Opérations</th>
+											</tr>
+										</thead>
+										<tbody id="table_role" th:each="role : ${roles}">
+											<tr >
+												<td th:text="${role.nom}"></td>
+												<td th:text="${role.Description}"></td>
+												<td >
+												<span th:each="lot:${lots}" th:if="${lot.getId()==role.getLot()}" th:text="${lot.getDescription()}"></span>
+												</td>
+												<td>
+													<span  th:each="role_permission: ${role.getPermissions()}" th:if ="${role_permission!=null}"th:text="'# ' + ${role_permission.getNom()} + ' '"></span>
+												</td>													
+												<td th:text="${role.niv_sec}"></td>
+												<td>
+													<a th:href="@{/roles/edit/{id}(id=${role.id})}" class="btn btn-primary opt_btn">Modifier</a>
+													<a th:href="@{/roles/delete/{id}(id=${role.id})}" class="btn btn-danger"> Supprimer</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<a class="btn btn-success add-btn" th:href="@{/roles/add}">Ajouter</a>
+								</div>
+								</br>
+								</br>
+							</div>
+							<!-- END RECENT PURCHASES -->
+						</div>
+						
+					</div>
+				
+					</div>
+					
+					
+				</div>
+				
+			</div>
+			<!-- END MAIN CONTENT -->
+			
+			
+			<div class="clearfix"></div>
+			
+			
+			
+		</div>
+	</div>
+	
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script src="../../assets/vendor/jquery/jquery.min.js"></script>
+	<script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="../../assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="../../assets/scripts/klorofil-common.js"></script>
+	
+</body>
+
+</html>

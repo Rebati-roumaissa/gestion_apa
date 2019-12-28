@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- Fragment #1 : Header files contains css and js references -->
+<head th:fragment="headerfiles">
+    <title>Introduction to SpringBoot Security</title>
+    <meta charset="UTF-8"/>
+    <link th:href="@{~/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{~/fontawesome/css/all.css}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Fragment #2 : Navbar contains nav links -->
+<div th:fragment="nav">
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li><a href="/" class="active"><i class="lnr lnr-home"></i> <span>Accueil</span></a></li>
+                    <li><a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i>
+                        <span>Documents</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subPages" class="collapse">
+                            <ul class="nav">
+                                <li sec:authorize="hasRole('Manager')"><a href="/Documents/gestionnaire/create"
+                                                                          class=""> Ajout </a></li>
+                                <li><a href="#subDocuments" data-toggle="collapse" class="collapsed">
+                                    <span> Listes des documents </span>
+                                    <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                    <div id="subDocuments" class="collapse">
+                                        <ul class="nav">
+                                            <li><a href="/Documents/all" class=""> Liste de tous les documents </a></li>
+                                            <li th:each="cat : ${categories}" class="">
+                                                <a th:href="'/Documents/byCategorieL/'+${cat.getIdcat()}"
+                                                   th:text="${cat.getLibcat()}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li><a href="/Documents/gestionnaire/statistics" class=""> Statistiques de
+                                    consultation</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasRole('Manager')"><a href="/Documents/gestionnaire/directories">Liste des
+                        dossiers</a></li>
+                    <li sec:authorize="hasRole('Manager')"><a href="#subCategories" data-toggle="collapse"
+                                                              class="collapsed"><i class="lnr lnr-code"></i>
+                        <span>Catégories</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subCategories" class="collapse">
+                            <ul class="nav">
+                                <li><a href="/ajouter_categorie" class=""> Ajout </a></li>
+                                <li><a href="#" class=""> Liste des catégories </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#subDemandes" data-toggle="collapse" class="collapsed"> <span>Demandes</span><i
+                            class="icon-submenu lnr lnr-chevron-left"></i> </a>
+                        <div id="subDemandes" class="collapse">
+                            <ul class="nav">
+
+                                <li sec:authorize="hasRole('USER')"><a href="/demandes/demandeur/remplirForm"
+                                                                       class="">Soumettre
+                                    une demande</a></li>
+
+                                <li sec:authorize="hasRole('MANAGER')"><a href="/demandes/gestionnaire/addDossier" class="">
+                                    Ajouter un dossier à fournir
+                                </a></li>
+
+                                <li sec:authorize="hasRole('MANAGER')"><a href="/demandes/gestionnaire/all" class="">
+                                    Liste des
+                                    demandes</a></li>
+
+                                <li sec:authorize="hasRole('USER')"><a href="/demandes/demandeur/all" class="">
+                                    Mes demandes</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class=""><a href="/logout"> Déconnexion </a></li>
+                    <li sec:authorize="isAnonymous()" class=""><a href="/login"> connexion </a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

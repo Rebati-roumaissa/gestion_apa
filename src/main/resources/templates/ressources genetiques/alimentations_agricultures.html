@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/linearicons/style.css">
+    <link rel="stylesheet"  type="text/css" href="../../assets/vendor/chartist/css/chartist-custom.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet"   type="text/css" href="../../assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet"  type="text/css" href="../../assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"  type="text/css">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png">
+    <style>
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900);
+a.btn {
+  background: #0096a0;
+  border-radius: 4px;
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  display: inline-block;
+  padding: 6px 30px 8px;
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: all 0.1s 0s ease-out;
+  transition: all 0.1s 0s ease-out;
+}
+
+
+
+.no-touch a.btn:hover {
+  background: #00a2ad;
+  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+  -webkit-transition: all 0.25s 0s ease-out;
+  transition: all 0.25s 0s ease-out;
+}
+.no-touch a.btn:active,
+a.btn:active {
+  background: #008a93;
+  box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);
+  -webkit-transform: translate3d(0, 1px, 0);
+          transform: translate3d(0, 1px, 0);
+  -webkit-transition: all 0.025s 0s ease-out;
+  transition: all 0.025s 0s ease-out;
+}
+div.cards {
+
+  max-width: 960px;
+   background: #ffffff;
+  display: inline-block;
+ 
+}
+div.card {
+  background: #ffffff;
+  display: inline-block;
+  margin: 8px;
+  max-width: 300px;
+  -webkit-perspective: 1000;
+          perspective: 1000;
+  position: relative;
+  text-align: left;
+  -webkit-transition: all 0.3s 0s ease-in;
+  transition: all 0.3s 0s ease-in;
+  z-index: 1;
+}
+div.card img {
+  width: 300px;
+  height: 240px;
+  
+   max-width: 320px;
+  max-height: 240px;
+}
+div.card div.card-title {
+  background: #ffffff;
+  padding: 6px 15px 10px;
+  position: relative;
+  z-index: 0;
+}
+div.card div.card-title a.toggle-info {
+  border-radius: 32px;
+  height: 32px;
+  padding: 0;
+  position: absolute;
+  right: 15px;
+  width: 32px;
+}
+div.card div.card-title a.toggle-info span {
+  background: #ffffff;
+  display: block;
+  height: 2px;
+  position: absolute;
+  top: 16px;
+  -webkit-transition: all 0.15s 0s ease-out;
+  transition: all 0.15s 0s ease-out;
+  width: 12px;
+}
+div.card div.card-title a.toggle-info span.left {
+  right: 13px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+div.card div.card-title a.toggle-info span.right {
+  left: 13px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+div.card div.card-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  margin: 0;
+  padding: 0;
+}
+div.card div.card-title  small {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+div.card div.card-description {
+  padding: 0 15px 10px;
+  position: relative;
+  font-size: 14px;
+}
+div.card div.card-actions {
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
+  padding: 10px 15px 20px;
+  text-align: center;
+}
+div.card div.card-flap {
+  background: #d9d9d9;
+  position: absolute;
+  width: 100%;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+}
+div.card div.flap1 {
+  -webkit-transition: all 0.3s 0.3s ease-out;
+  transition: all 0.3s 0.3s ease-out;
+  z-index: -1;
+}
+div.card div.flap2 {
+  -webkit-transition: all 0.3s 0s ease-out;
+  transition: all 0.3s 0s ease-out;
+  z-index: -2;
+}
+div.cards.showing div.card {
+  cursor: pointer;
+  opacity: 0.6;
+  -webkit-transform: scale(0.88);
+          transform: scale(0.88);
+}
+.no-touch div.cards.showing div.card:hover {
+  opacity: 0.94;
+  -webkit-transform: scale(0.92);
+          transform: scale(0.92);
+}
+div.card.show {
+  opacity: 1 !important;
+  -webkit-transform: scale(1) !important;
+          transform: scale(1) !important;
+}
+div.card.show div.card-title a.toggle-info {
+  background: #ff6666 !important;
+}
+div.card.show div.card-title a.toggle-info span {
+  top: 15px;
+}
+div.card.show div.card-title a.toggle-info span.left {
+  right: 9px;
+}
+div.card.show div.card-title a.toggle-info span.right {
+  left: 9px;
+}
+div.card.show div.card-flap {
+  background: #ffffff;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+div.card.show div.flap1 {
+  -webkit-transition: all 0.3s 0s ease-out;
+  transition: all 0.3s 0s ease-out;
+}
+div.card.show div.flap2 {
+  -webkit-transition: all 0.3s 0.2s ease-out;
+  transition: all 0.3s 0.2s ease-out;
+}
+        #instoverlay,#rhoverlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+        #text{
+			display:none;
+			}
+        #menu-accordeon {
+
+            list-style:none;
+        }
+        #menu-accordeon ul {
+
+            list-style:none;
+ 			 margin-left: 40px;
+          }
+        #menu-accordeon li {
+            border-radius: 6px;
+            margin-bottom:2px;
+        }
+        #menu-accordeon li li {
+            max-height:0;
+            overflow: hidden;
+            transition: all .5s;
+            border-radius:0;
+            box-shadow: none;
+            border:none;
+            margin:0
+        }
+
+        #menu-accordeon ul li a {
+        }
+
+        #menu-accordeon ul li:last-child {
+            border-radius: 0 0 6px 6px;
+            border:none;
+        }
+        #menu-accordeon li:hover li {
+            max-height: 15em;
+        }
+        .carousel-page
+        {
+            width:100%;
+            height:400px;
+            background-color:#5f666d;
+            color:white;
+        }
+        .panel-title2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 300; }
+
+
+        .featured-list{
+            width:100%;
+            margin-bottom: 15px;
+
+
+        }
+
+        .featured-list #grid {
+            width: 100%;
+        }
+
+        .featured-list #grid .thumb {
+            float: left;
+            height: auto;
+
+            width: 33%;
+        }
+
+        .protfolio-padding{
+            padding-top:80px;
+        }
+
+        .thumb {
+            line-height: 0;
+            overflow: hidden;
+            position: relative;
+
+
+        }
+
+        .thumb a {
+            display: inline-block;
+            float: left;
+            height: 100%;
+            line-height: 0;
+            text-decoration: none;
+            width: 100%;
+        }
+        .slider-btn {
+            margin-top: 21px;
+            text-align: center
+        }
+
+        .indicatior2{
+            top:90% !important;
+        }
+
+        .formation img {
+
+            height: 571px;
+            width:1601px;
+
+        }
+
+        .btn.btn-learn {
+            background: #00bcd4 none repeat scroll 0 0;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 500;
+            padding: 15px 30px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .thumb img, .thumb a img {
+            display: block;
+            position: relative;
+            height: 260px;
+            width:401px;
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .thumb-rollover{
+            position:absolute;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+
+            height:100%;
+            width:100%;
+            box-sizing:border-box;
+            background:#00bcd4;
+            opaliste:0.9;
+            text-align:center;
+            color:#fff;
+            display:none;
+            transition:0.2s;
+
+        }
+
+        .project-title{
+
+            margin:auto;
+            width:auto;
+            margin-top:60px;
+            transition:0.2s;
+        }
+        .entry p{
+		font-family: "Source Sans Pro", sans-serif;
+    font-size: 17px;
+            }
+
+        .project-title h4{
+            font-size:20px;
+            line-height:30px;
+            text-transform:uppercase;
+        }
+
+        .project-title h5{
+            font-size:15px;
+            line-height:30px;
+
+        }
+       
+        .btn.btn-suite {
+
+
+            background: #00bcd4 none repeat scroll 0 0;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 500;
+            padding: 15px 30px;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+
+        }
+
+        .thumb:hover .thumb-rollover{
+            display:block;
+            transition:0.2s;
+        }
+
+.navigation{
+text-align: center;
+}
+
+.active a{
+    color: red !important;
+}
+
+.btn-circle, .btn-circle-3d{
+  border-radius: 50% !important;
+}
+
+.btn-primary.btn-circle{
+  -webkit-box-shadow: 0px 0px 3px 1px #245580;
+  -moz-box-shadow:    0px 0px 3px 1px #245580;
+  box-shadow:         0px 0px 3px 1px #245580;
+}
+.btn-lg {
+    padding: 10px 15px;
+}
+#fixedbutton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px; 
+}
+
+    </style>
+</head>
+<body>
+
+
+<div id="wrapper">
+
+
+
+   	<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="index.html"><img src="../../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			</div>
+			  
+			  <div id="instoverlay" >
+			   <div class="row " style="padding-top:2%">
+                 <div class="col-md-6 col-md-offset-3">
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+			 </div>
+			</div>
+	         </div>
+	           <div id="rhoverlay" >
+			   <div class="row " style="padding-top:10%;">
+                 <div class="col-md-6 col-md-offset-3" >
+							<!-- TASKS -->
+							<div class="panel">
+								
+							</div>
+							<!-- END TASKS -->
+						</div>
+						</div>
+	         </div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+				
+				<div class="navbar-btn navbar-btn-right">
+					<a  sec:authorize="!isAuthenticated()"th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" style="background-color: #41B314; border-color: #3ca512;" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+                <a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" style="background-color: #41B314; border-color: #3ca512;"><i class="fa fa-rocket"></i> <span>Logout</span></a>
+				</div>
+				<div  style="margin-right:15%;">
+                    <ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+                        <li ><a href="/">Home</a></li>
+                        <li ><a href="/annuaire" >Annuaire</a></li>
+                        <li ><a href="/Alimentation et Agriculture/all" class="actif" >Dictionnaire RG</a></li>
+                        <li><a href="/ged/index" >Règlements et demande d'accès</a></li>
+                        <li sec:authorize="hasRole('Admin')" >
+                            <a class="nav-link"  th:href="@{/comptes}">Comptes</a><li><a href="">Contact</a></li>
+
+                    </ul>
+				</div>
+			</div>
+		</nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+               
+                 <ul class="nav" sec:authorize="isAuthenticated()" >
+                    <li th:if="${valide}" sec:authorize="!hasRole('Admin')">
+                        <a th:href="${'/etat_ressources'}" class="active"  ><i class="lnr lnr-list"></i>
+                          <span>  Etat des Ressources </span></a>
+                    </li>
+                </ul>
+                <ul class="nav">
+
+                    <li>
+                        <a class="active" href="#subPages2" data-toggle="collapse" ><i class="lnr lnr-layers"></i> <span>Ressources génétiques</span> </a>
+                        <div id="subPages2" class="collapse ">
+                           <ul id="menu-accordeon" class="nav">
+                                <li ><a th:href="${'/Alimentation et Agriculture/all'}" > Alimentation et Agriculture</a>	
+                                   <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='0'"><a th:text="${liste.nom}"  th:href="@{/Alimentation et Agriculture/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul> 	
+                                    
+                                    
+                                </li>
+            
+                                <li><a th:href="${'/Animals/all'}" >Animals</a>
+                                    <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='1'"><a th:text="${liste.nom}"  th:href="@{/Animals/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Forestières/all'}" >Forestières</a>
+                                       <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='2'"><a th:text="${liste.nom}"  th:href="@{/Forestières/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Marines/all'}" >Marines</a>
+                                   <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='3'"><a th:text="${liste.nom}"  th:href="@{/Marines/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+                                <li><a th:href="${'/Micro Organismes/all'}"class="">Micro Organismes</a>
+                                    <ul  th:each="liste : ${listesClassifications}">
+                                        <li th:if="${liste.lot.getId()}=='4'"><a th:text="${liste.nom}"  th:href="@{/Micro Organismes/{nom}/{id}(nom=${liste.nom},id=${liste.id})}"></a></li>
+                                    </ul>
+                                </li>
+
+
+
+                            </ul>
+
+                        </div>
+                    </li>
+                </ul>
+               
+            </nav>
+        </div>
+          <div id="fixedbutton" sec:authorize="isAuthenticated()"th:if="${ajoute}">
+             <a   sec:authorize="!hasRole('Admin')"  th:href="@{/ressource/create/form}" class="btn btn-lg btn-primary btn-circle" style="background-color:#41B314;border-color:#41B314;" ><i class="fa fa-plus"></i></a>
+        
+        </div>
+    </div>
+    <!-- END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content" >
+            <div class="container-fluid">
+                <!-- OVERVIEW -->
+                <div class="panel panel-headline">
+
+                      <div class="panel">
+
+        
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+
+                                <div class="item active">
+                                    <div class="carousel-page">
+                                        <img  src="../../assets/img/img1.jpg" width="100%"height="100%"></div>
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="carousel-page">
+                                        <img src="../../assets/img/img2.jpg"  width="100%" height="100%"></div>
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="carousel-page">
+                                        <img src="../../assets/img/alim.jpg" width="100%" height="100%"></div>
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Left and right controls -->
+                        </div>
+                        <div class="panel-heading">
+                            <h2 class="panel-title2"> <strong >Description</strong> </h2>
+                            <div class="entry" >
+                                <p th:text="${product.get().getDescription()}" > for</p>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+              <div class="panel panel-headline">
+                    <div class="panel" >
+                    
+                        <div class="panel-heading" >
+                           	 <div class="featured-list" >
+                                <div id="grid" class="clearfix" sec:authorize="isAuthenticated()" >
+                   
+                                    <div class="cards" th:each	="ressource:${ListRessources}">
+									     <div class="card" th:if="${ressource.getVisible()}">	
+									    	 <div th:if="${ressource.getNiv_sec_ressourceUtilisateur()<max_niv_sec}">										  
+											 	<img  th:src="@{'../../images/'+${ressource.getImage()}}"  />
+											    <div class="card-title" >
+											      <a href="#" class="toggle-info btn">
+											        <span class="left"></span>
+											        <span class="right"></span>
+											      </a>
+											      <h2 th:text="${ressource.getNom_commun()}">  Nom Commun
+											      </h2>
+											        <small th:text="'Nom Scientifique : '+${ressource.getNom_scientifique()}" >nom scientifique</small>
+											      
+											    </div>
+											    <div class="card-flap flap1">
+											      <div class="card-description"  th:text="${ressource.getDetaille_prelevement()}">
+											        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
+											      </div>
+											      <div class="card-flap flap2">
+											        <div class="card-actions">
+														<a th:href="@{/Alimentation et Agriculture/detaille/{id}(id=${ressource.getId()})}" target="_blank" class="btn">Read more</a>											        </div>
+											      </div>
+											    </div>
+											    </div>
+											  </div>
+										
+										</div>
+											<div class="navigation">
+											<ul class="pagination">
+											<li th:each="i : ${#numbers.sequence(0,totPage-1)}"> 
+											<a th:if="${totPage-1>0} "  th:href="@{/Alimentation et Agriculture/all/(page=${i})}" th:text="${i}"
+												th:classappend="${currentPage==i}? 'active' :'' "></a>
+											</li>
+											</ul>
+											
+										
+										</div>
+
+										
+										</div>
+										
+								
+								<div id="grid" class="clearfix" sec:authorize="!isAuthenticated()" >
+                                    <div class="cards" th:each	="ressource:${ListRessources}">
+							            <div class="card" th:if="${ressource.getVisible()}">
+											  <div th:if="${ressource.getNiv_sec_ressourceUtilisateur()<2}">										  
+											  											  
+											 	<img th:src="@{'../../images/'+${ressource.getImage()}}"   />
+											    <div class="card-title" >
+											      <a href="#" class="toggle-info btn">
+											        <span class="left"></span>
+											        <span class="right"></span>
+											      </a>
+											      <h2 th:text="${ressource.getNom_commun()}">  Nom Commun
+											      </h2>
+											        <small th:text="'Nom Scientifique : '+${ressource.getNom_scientifique()}" >nom scientifique</small>
+											      
+											    </div>
+											    <div class="card-flap flap1">
+											      <div class="card-description"  th:text="${ressource.getDetaille_prelevement()}">
+											        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
+											      </div>
+											      <div class="card-flap flap2">
+											        <div class="card-actions">
+														<a th:href="@{/Alimentation et Agriculture/detaille/{id}(id=${ressource.getId()})}" target="_blank" class="btn">Read more</a>											        </div>
+											      </div>
+											    </div>
+											    </div>
+											  </div>
+										
+										</div>
+											<div class="navigation">
+											<ul class="pagination">
+											<li th:each="i : ${#numbers.sequence(0,totPage-1)}"> 
+											<a th:if="${totPage-1>0} "  th:href="@{/Alimentation et Agriculture/all/(page=${i})}" th:text="${i}"
+												th:classappend="${currentPage==i}? 'active' :'' "></a>
+											</li>
+											</ul>
+										</div>
+
+										
+										</div>
+                            	</div>
+                       		 </div>
+                  	  </div><!-- END MAIN -->
+                  	  
+               	 </div>
+            </div>
+        </div>
+        </div>
+        </div>
+  <!-- END MAIN -->
+
+    <!-- Javascript -->
+    <script src="../../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+    <script src="../../assets/vendor/chartist/js/chartist.min.js"></script>
+    <script src="../../assets/scripts/klorofil-common.js"></script>
+    <script src="../../assets/scripts/wow.min.js"></script>
+    <script src="../../assets/scripts/wow.js"></script>
+
+
+ 
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
+
+    <script>
+    $(document).ready(function(){
+  	  var zindex = 10;
+  	  
+  	  $("div.card").click(function(e){
+
+  	    var isShowing = false;
+
+  	    if ($(this).hasClass("show")) {
+  	      isShowing = true
+  	    }
+
+  	    if ($("div.cards").hasClass("showing")) {
+  	      // a card is already in view
+  	      $("div.card.show")
+  	        .removeClass("show");
+
+  	      if (isShowing) {
+  	        // this card was showing - reset the grid
+  	        $("div.cards")
+  	          .removeClass("showing");
+  	      } else {
+  	        // this card isn't showing - get in with it
+  	        $(this)
+  	          .css({zIndex: zindex})
+  	          .addClass("show");
+
+  	      }
+
+  	      zindex++;
+
+  	    } else {
+  	      // no cards in view
+  	      $("div.cards")
+  	        .addClass("showing");
+  	      $(this)
+  	        .css({zIndex:zindex})
+  	        .addClass("show");
+
+  	      zindex++;
+  	    }
+  	    
+  	  });
+  	});
+
+    </script>
+</body>
+
+</html>

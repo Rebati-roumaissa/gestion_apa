@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajout d'une catégorie</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}"/>
+</head>
+
+<body>
+<div class="container">
+    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+        <div class="card">
+            <div class="card-block" style="padding: 24px;">
+
+                <form name="f" th:action="@{/Categories/create}" method="post">
+                    <fieldset>
+                        <!-- Categorie Controls -->
+                        <div class="form-group">
+                            <label for="txtidcat">Identifiant de la catégorie</label>
+                            <input type="text" class="form-control" id="txtidcat" name="idcat"
+                                   placeholder="identifiant catégorie">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtlibCat">Libellé de la catégorie</label>
+                            <input type="text" class="form-control" id="txtlibcat" name="libcat"
+                                   placeholder="libellé catégorie">
+                        </div>
+
+                        <!-- Ajout Button -->
+                        <div class="form-actions" style="margin-top: 12px;">
+                            <a href="/">
+                                <button type="button" class="btn btn-danger">Annuler</button>
+                            </a>
+                            <button type="submit" class="btn btn-success">Ajouter</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

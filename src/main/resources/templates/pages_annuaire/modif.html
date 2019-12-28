@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>APA Web Portal</title>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<!-- VENDOR CSS -->
+	<link rel="stylesheet" href="../../assets/vendor/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/linearicons/style.css"/>
+	<link rel="stylesheet" href="../../assets/vendor/chartist/css/chartist-custom.css"/>
+	<!-- MAIN CSS -->
+	<link rel="stylesheet" href="../../assets/css/main.css"/>
+	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+	<link rel="stylesheet" href="../../assets/css/demo.css"/>
+	<!-- GOOGLE FONTS -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"/>
+	<!-- ICONS -->
+	<link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png"/>
+	<link rel="icon" type="image/png" sizes="96x96" href="../../assets/img/favicon.png"/>
+</head>
+<body>
+    
+	
+	<div id="wrapper">
+	 
+      
+		
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="index.html"><img src="../../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+			</div>
+			<div class="container-fluid">
+
+				<div class="navbar-btn navbar-btn-right">
+					<a  sec:authorize="!isAuthenticated()"th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+					<a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Logout</span></a>
+				</div>
+				
+				<div  style="margin-right:15%;">
+					<ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+						<li ><a href="/">Home</a></li>
+						<li class="actif"><a href="/annuaire" >Annuaire</a></li>
+						<li><a href="/Alimentation et Agriculture/all">Dictionnaire RG</a></li>
+						<li><a href="/ged/index">Règlements et demande d'accès</a></li>
+						<li sec:authorize="hasRole('Admin')" class="nav-item">
+							<a class="nav-link"  th:href="@{/comptes}">Comptes</a>
+						</li>
+						<li><a href="">Contact</a></li>
+                                   
+                                </ul>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="main" style="margin-right:5%;padding-right:10%">
+			<!-- MAIN CONTENT -->
+			<div class="main-content" >
+			  <div class="container-fluid">
+					<!-- OVERVIEW -->
+					<div class="panel panel-headline">
+					
+						<div class="panel-heading">
+							<h3 class="panel-title" > Institutions <a href="/cat_inst_form"><img src="../../assets/img/add.png"/> </a> </h3> 
+					  </div>
+					
+					<!-- END OVERVIEW -->
+					<div class="row" style="padding-left:100px;">
+						<div class="col-md-6">
+						
+									<table  class="table table-hover">
+										<thead>
+											<tr>
+												<th >Titre</th>
+												<th></th>
+												
+											</tr>
+										</thead>
+										<tbody  th:each="cat_inst : ${cat_inst}" >
+										
+											<tr >
+											 <td ><a href="#table_detail" th:text="${cat_inst.designation}" class="cat" th:id="'inst/'+${cat_inst.id_cat_inst}" ></a></td>
+											 <td ><a th:href="@{/modif/{id}/cat_inst(id=${cat_inst.id_cat_inst})}"><img src="../../assets/img/edit_blue.png" class="btnEdit_inst" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/img/delete_red.png" class="btnDelete_inst" th:id="'delete_inst/'+${cat_inst.id_cat_inst}"/></td>
+												
+				
+											</tr>
+										
+										</tbody>
+									</table>
+						</div>
+			
+						
+					</div>
+				     <div class="panel-heading">
+							<h3 class="panel-title" > Resources humaines <a href="/"><img src="../../assets/img/add.png"/></a> </h3>		
+					  </div>
+					  
+					  <div class="row" style="padding-left:100px">
+						<div class="col-md-6">
+							<!-- RECENT PURCHASES -->
+							
+								
+								
+									<table  class="table table-hover">
+										<thead>
+											<tr>
+												<th >Titre</th>
+												<th></th>
+												
+											</tr>
+										</thead>
+										<tbody  th:each="cat_rh : ${cat_rh}" >
+										
+											<tr >
+											   <td> <a href="#table_detail" th:text="${cat_rh.designation}" class="cat" th:id="'rh/'+${cat_rh.id_cat_rh}"></a></td>
+											   <td> <a th:href="@{/modif/{id}/cat_rh(id=${cat_rh.id_cat_rh})}"><img src="../../assets/img/edit_blue.png" class="btnEdit_rh"/></a>&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/img/delete_red.png" class="btnDelete_inst" th:id="'delete_rh/'+${cat_rh.id_cat_rh}"/></td>
+												
+				
+											</tr>
+										
+										</tbody>
+									</table>
+	
+			
+							<!-- END RECENT PURCHASES -->
+						</div>
+			
+						
+					</div>
+					    <div class="panel-heading" >
+							<h3 class="panel-title" > Sous catégorie  <a href="/add_inst_get"><img src="../../assets/img/add.png"/></a></h3>		
+					  </div>
+					  
+					  <div class="row" style="padding-left:100px">
+						<div class="col-md-10">						
+									<table id="table_detail" class="table table-hover">
+										<thead>
+											<tr>
+												<th >Titre</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody  id="table_detail_body" >
+										</tbody>
+									</table>							
+							<!-- END RECENT PURCHASES -->
+						</div>
+			
+						
+					</div>
+					  
+					</div>
+					
+					
+				</div>
+				
+			<!-- END MAIN CONTENT -->
+
+		</div>
+		</div>
+		<!-- END MAIN -->
+		<div class="clearfix"></div>
+		
+	</div>
+	<!-- END WRAPPER -->
+	<!-- Javascript -->
+	<script src="../../assets/vendor/jquery/jquery.min.js"></script>
+	<script src="../../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="../../assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="../../assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="../../assets/scripts/klorofil-common.js"></script>   
+	<script  >
+	$(function(){
+		$(".cat").click(function() {
+			  $('#table_detail_body').empty();
+			 $.ajax({
+          	    type : "GET",
+          	    url : "/modif/"+this.id,
+          	    crossDomain:true,
+         	    crossOrigin:true,
+         	    success: function(result){
+         	    $.each(result, function(i, detail){
+         	        
+         	        var detailRow = '<tr>' +
+         	                  '<td>' + detail.nom + '</td>' +
+         	                  '<td><img src="../../assets/img/edit_blue.png"/>&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/img/delete_red.png"/></td>'+   
+         	                  '</tr>';
+         	      
+         	        $('#table_detail_body').append(detailRow);
+         	          
+         	    });
+          	    
+          	    },
+          	      error : function(e) {
+          	      alert("ERROR: ", e);
+          	      console.log("ERROR: ", e);
+          	    }
+          	  });
+			 
+			
+		});		
+		$(".btnDelete_inst").click(function() {
+			 var par = $(this).parent().parent(); //tr
+			 var name= par.find("a");
+			 var button = par.children("td:nth-child(2)");
+			 button.html('<img src="../../assets/img/edit_gray.png" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/img/delete_gray.png"/>');
+			 name.off('click');
+			 $.ajax({
+	          	    type : "GET",
+	          	    url : "/"+this.id,
+	          	    crossDomain:true,
+	         	    crossOrigin:true,
+	         	    success: function(result){
+	         	    	
+	          	    },
+	          	    error : function(e) {
+	          	      alert("ERROR: ", e);
+	          	      console.log("ERROR: ", e);
+	          	    }
+	          	  });
+			 
+		});
+	});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/linearicons/style.css"
+          th:href="@{/assets/vendor/linearicons/style.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/chartist/css/chartist-custom.css"
+          th:href="@{/assets/vendor/chartist/css/chartist-custom.css}"/>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../static/assets/css/main.css" th:href="@{/assets/css/main.css}"/>
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="../static/assets/css/demo.css" th:href="@{/assets/css/demo.css}"/>
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"/>
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png"
+          th:href="@{/assets/img/apple-icon.png}"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="../static/assets/img/favicon.png"
+          th:href="@{/assets/img/favicon.png}"/>
+    <style>
+        #fixedbutton {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+        #instoverlay,#rhoverlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<script src="../static/assets/vendor/jquery/jquery.min.js" th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+<script src="../static/assets/vendor/bootstrap/js/bootstrap.min.js"
+        th:src="@{/assets/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script src="../static/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"
+        th:src="@{/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+<script src="../static/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"
+        th:src="@{/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js}"></script>
+<script src="../static/assets/vendor/chartist/js/chartist.min.js"
+        th:src="@{/assets/vendor/chartist/js/chartist.min.js}"></script>
+<script src="../static/assets/scripts/klorofil-common.js" th:src="@{/assets/scripts/klorofil-common.js}"></script>
+<title>Liste des demandes</title>
+
+<body>
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a href="index.html"><img src="../../assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"/></a>
+        </div>
+
+        <div id="instoverlay" >
+            <div class="row " style="padding-top:2%">
+                <div class="col-md-6 col-md-offset-3">
+                    <!-- TASKS -->
+                    <div class="panel">
+
+                    </div>
+                    <!-- END TASKS -->
+                </div>
+            </div>
+        </div>
+        <div id="rhoverlay" >
+            <div class="row " style="padding-top:10%;">
+                <div class="col-md-6 col-md-offset-3" >
+                    <!-- TASKS -->
+                    <div class="panel">
+
+                    </div>
+                    <!-- END TASKS -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-btn">
+                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+            </div>
+
+            <div class="navbar-btn navbar-btn-right">
+                <a  sec:authorize="!isAuthenticated()"th:href="${'/login'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Sign In</span></a>
+                <a sec:authorize="isAuthenticated()" th:href="${'/logout'}" class="btn btn-success update-pro"  title="Upgrade to Pro" ><i class="fa fa-rocket"></i> <span>Logout</span></a>
+            </div>
+            <div  style="margin-right:15%;">
+                <ul class="nav navbar-nav navbar-right main_menu" id="menu_navigation">
+                    <li ><a href="">Home</a></li>
+                    <li ><a href="/annuaire" >Annuaire</a></li>
+                    <li><a href="/Alimentation et Agriculture/all">Dictionnaire RG</a></li>
+                    <li class="actif"><a href="/ged/index">Règlements et demande d'accès</a></li>
+                    <li><a href="">Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-nav" class="sidebar">
+        <div class="sidebar-scroll">
+            <nav>
+                <ul class="nav">
+                    <li><a href="/ged/index" class="active"><i class="lnr lnr-home"></i> <span>Accueil</span></a></li>
+                    <li><a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i>
+                        <span>Textes réglementaires</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subPages" class="collapse">
+                            <ul class="nav">
+                                <li sec:authorize="hasRole('GESTIONNAIRE_DOCUMENTS')"><a href="/Directories/add">Ajout d'un dossier de classification</a></li>
+                                <li sec:authorize="hasRole('GESTIONNAIRE_DOCUMENTS')"><a href="/Documents/gestionnaire/create"
+                                                                                         class=""> Ajout d'un texte </a></li>
+                                <li><a href="#subDocuments" data-toggle="collapse" class="collapsed">
+                                    <span> Listes des documents </span>
+                                    <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                    <div id="subDocuments" class="collapse">
+                                        <ul class="nav">
+                                            <li><a href="/Documents/all" class=""> Liste de tous les textes </a></li>
+                                            <li th:each="cat : ${categories}" class="">
+                                                <a th:href="'/Documents/byCategorieL/'+${cat.getIdcat()}"
+                                                   th:text="${cat.getLibcat()}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li sec:authorize="hasAnyRole('GESTIONNAIRE_DOCUMENTS','ADMIN')"><a href="/Documents/gestionnaire/statistics" class=""> Statistiques de
+                                    consultation</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasRole('GESTIONNAIRE_DOCUMENTS')"><a href="#subCategories" data-toggle="collapse"
+                                                                             class="collapsed"><i class="lnr lnr-code"></i>
+                        <span>Catégories</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subCategories" class="collapse">
+                            <ul class="nav">
+                                <li><a href="/ajouter_categorie" class=""> Ajout </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#subDemandes" data-toggle="collapse" class="collapsed"> <span>Demandes permis</span><i
+                            class="icon-submenu lnr lnr-chevron-left"></i> </a>
+                        <div id="subDemandes" class="collapse">
+                            <ul class="nav">
+                                <li><a href="/demandes/informations">Informations</a></li>
+                                <li sec:authorize="hasRole('DEMANDEUR')"><a href="/demandes/demandeur/remplirForm"
+                                                                            class="">Soumettre
+                                    une demande</a></li>
+
+                                <li sec:authorize="hasRole('GESTIONNAIRE_PERMIS')"><a href="/demandes/gestionnaire/addDossier" class="">
+                                    Ajouter un dossier à fournir
+                                </a></li>
+
+                                <li sec:authorize="hasRole('GESTIONNAIRE_PERMIS')"><a href="/demandes/gestionnaire/all" class="">
+                                    Liste des
+                                    demandes</a></li>
+
+                                <li sec:authorize="hasRole('DEMANDEUR')"><a href="/demandes/demandeur/all" class="">
+                                    Mes demandes</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li sec:authorize="hasAnyRole('GESTIONNAIRE_PERMIS','DEMANDEUR')"><a href="#subPermis" data-toggle="collapse"
+                                                                                         class="collapsed"><i class="lnr lnr-code"></i>
+                        <span>Permis d'accès</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <div id="subPermis" class="collapse">
+                            <ul class="nav">
+                                <li sec:authorize="hasRole('GESTIONNAIRE_PERMIS')"><a href="/PermisAcces/gestionnaire/all" class=""> Liste des permis </a></li>
+                                <li sec:authorize="hasRole('DEMANDEUR')"><a href="/PermisAcces/demandeur/all" class=""> Mes Permis </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class=""><a href="/logout"> Déconnexion </a></li>
+                    <li sec:authorize="isAnonymous()" class=""><a href="/login"> connexion </a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!--END LEFT SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+                <!-- OVERVIEW -->
+                <div class="panel panel-headline">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Liste des demandes </h3>
+                        <div class="row" style="padding-left:100px;">
+                            <!--   <div class="">
+                                   <form th:if="${types!=null}" action="#" method="POST">
+                                       <label for="type"> Choisissez le type des demandes recherché </label> <br/><br/>
+                                       <select id="type" name="CategorieSelection">
+                                           <option th:each="t : ${types}" th:value="${t.getTypeDemande()}"
+                                                   th:text="${t.getTypeDemande()}"></option>
+                                       </select>
+                                       <input type="submit" value="Submit"/>
+                                   </form>
+                               </div> -->
+                            <br/><br/><br/>
+                            <div class="">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div th:if="${demandesAttente!=null}" class="metric">
+                                                <a href="/demandes/gestionnaire/byStatut/en attente">
+                                                <span>
+                                                    <img src="../static/img/hourglass.png" width="30" height="30"
+                                                         th:src="@{/img/hourglass.png}"/>
+                                                </span>
+                                                    <p>
+                                                        <span class="number" th:text="${demandesAttente.size()}"></span>
+                                                        <span class="title">En attente</span>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div th:if="${demandesCours!=null}" class="metric">
+                                                <a href="/demandes/gestionnaire/byStatut/en cours">
+                                                <span>
+                                                    <img src="../static/img/pencil.png" width="30" height="30"
+                                                         th:src="@{/img/pencil.png}"/>
+                                                </span>
+                                                    <p>
+                                                        <span class="number" th:text="${demandesCours.size()}"></span>
+                                                        <span class="title">En cours</span>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div th:if="${demandesValides!=null}" class="metric">
+                                                <a href="/demandes/gestionnaire/byStatut/validee">
+                                                <span>
+                                                    <img src="../static/img/checked.png" width="30" height="30"
+                                                         th:src="@{/img/checked.png}"/>
+                                                </span>
+                                                    <p>
+                                                        <span class="number" th:text="${demandesValides.size()}"></span>
+                                                        <span class="title">Validées</span>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div th:if="${demandesRefusees!=null}" class="metric">
+                                                <a href="/demandes/gestionnaire/byStatut/refusee">
+                                                <span>
+                                                    <img src="../static/img/rejected.png" width="30" height="30"
+                                                         th:src="@{/img/rejected.png}"/>
+                                                </span>
+                                                    <p>
+                                                        <span class="number"
+                                                              th:text="${demandesRefusees.size()}"></span>
+                                                        <span class="title">Refusées</span>
+                                                    </p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- TABLE NO PADDING -->
+                                    <div class="panel">
+                                        <div class="panel-body no-padding">
+                                            <table th:if="${demandes!=null}" class="table">
+                                                <tr th:each="demande: ${demandes}">
+                                                    <div th:unless="${demande.getEtatDemande()== 'brouillon'}">
+                                                        <td th:if="${demande.getUtilisateur()!= null}"
+                                                            th:text="${demande.getUtilisateur().getNom() + ' ' +demande.getUtilisateur().getPrenom()}"></td>
+                                                        <td th:text="${demande.getIddemande()}"></td>
+                                                        <td>
+                                                            <div th:if="${demande.getEtatDemande()== 'en attente'}">
+                                                                <span class="label label-default">En attente</span>
+                                                            </div>
+                                                            <div th:if="${demande.getEtatDemande()== 'en cours'}">
+                                                                <span class="label label-primary">En traitement</span>
+                                                            </div>
+                                                            <div th:if="${demande.getEtatDemande()== 'validee'}">
+                                                                <span class="label label-success">Validée</span>
+                                                            </div>
+                                                            <div th:if="${demande.getEtatDemande()== 'refusee'}">
+                                                                <span class="label label-danger">Refusée</span>
+                                                            </div>
+                                                        </td>
+                                                        <!-- <td th:text="${demande.getDemandeur()td th:text="${demande.getDemandeur()td th:text="${demande.getDemandeur().getNom()}"> </td>
+                                                       <td th:text="${demande.getDemandeur().getPrenom()}"> </td>-->
+                                                        <td>
+                                                            <a th:href="'/demandes/gestionnaire/Files/'+${demande.getIddemande()} ">
+                                                                Traiter</a>
+                                                        </td>
+                                                    </div>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

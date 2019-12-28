@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajout d'un dossier</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+        <div class="card">
+            <div class="card-block" style="padding: 24px;">
+
+                <form name="f" th:action="@{/Directories/create}" method="post">
+                    <fieldset>
+                        <!-- Categorie Controls -->
+                        <div class="form-group">
+                            <label for="txtiddos">Titre du dossier</label>
+                            <input type="text" class="form-control" id="txtiddos" name="titre"
+                                   placeholder="Titre dossier">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtChemin">Dossier parent</label>
+                            <select id="txtChemin" name="idparent">
+                                <option th:each="dir : ${directories}"
+                                        th:text="${dir.getTitre()}" th:value="${dir.getIddirectory()}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Ajout Button -->
+                        <div class="form-actions" style="margin-top: 12px;">
+                            <a href="/">
+                                <button type="button" class="btn btn-danger">Annuler</button>
+                            </a>
+                            <button type="submit" class="btn btn-success">Ajouter</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

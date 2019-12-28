@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dossier à fournir</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../static/assets/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/vendor/font-awesome/css/font-awesome.min.css"
+          th:href="@{/assets/vendor/font-awesome/css/font-awesome.min.css}"/>
+</head>
+<script src="../static/assets/vendor/jquery/jquery.min.js" th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+<body>
+<div class="container">
+    <div style="width:600px;margin-left: auto;margin-right: auto;margin-top:24px;padding: 24px;">
+        <div class="card">
+            <div class="card-block" style="padding: 24px;">
+
+                <form name="f"> <!--th:action="@{/demandes/gestionnaire/dossierpreuves}" method="post"> -->
+                    <fieldset>
+                        <!-- Categorie Controls -->
+                        <div class="form-group">
+                            <label for="txttype">Type du permis demandé</label>
+                            <input type="text" class="form-control" id="txttype" name="typeDemande"
+                                   placeholder="Type du permis demandé">
+                        </div>
+
+                        <div class="form-group">
+                            <div id="preuve"><label for="preuveoblig"> Document de preuve 1</label>
+                                <input id="preuveoblig" type="text" name="preuve1"/><br/></div>
+                        </div>
+                        <input type="button" name="addchoice" id="addchoice" value="Ajouter un document"/><br/>
+                        <div class="form-actions" style="margin-top: 12px;">
+                            <a href="/">
+                                <button type="button" class="btn btn-danger">Annuler</button>
+                            </a>
+                            <input id="confirmadd" type="button" class="btn btn-success" value="Ajouter"/>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var element = document.getElementById('addchoice');
+        element.addEventListener('click', function () {
+            //   var input1 = document.getElementById('preuveoblig');
+            var TabInputs = document.getElementsByTagName('input');
+            var TabValue = new Array();
+            var container = document.getElementById('preuve');
+            var numero = TabInputs.length - 2;
+            container.appendChild(document.createTextNode("Document de preuve " + numero + " "));
+            // Create an <input> element, set its type and name attributes
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "preuve" + numero;
+            container.appendChild(input);
+            // Append a line break
+            container.appendChild(document.createElement("br"));
+            /*var input2 = input1.cloneNode(true);
+        input1.parentNode.appendChild(input2);*/
+            for (i = 1; i < TabInputs.length; i++) {
+                if (TabInputs[i].type == "text") {
+                    TabValue.push(TabInputs[i].value);
+                }
+            }
+        }, false);
+    });
+    $(document).ready(function () {
+        //Ajout dossier
+        document.getElementById("confirmadd").addEventListener('click', function () {
+            var TabInputs = document.getElementsByTagName('input');
+            var TabValue = new Array();
+            for (i = 0; i < TabInputs.length; i++) {
+                if (TabInputs[i].type == "text") {
+                    TabValue.push(TabInputs[i].value);
+                }
+            }
+            var data1 = JSON.stringify(TabValue);
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/demandes/gestionnaire/dossierpreuves",//"/theLocalisation", // here you put the "Url" of your spring mvc controller
+                data: data1,
+                timeout: 100000,
+                success: function (data) {
+                    //var json = JSON.parse(data);
+                    //here it's the callback in the success case
+                    window.location.href = data;
+
+                },
+                error: function (e) {
+                    console.log("ERROR: ", e);
+                },
+                done: function (e) {
+                }
+            });
+        }, false);
+    });
+</script>
